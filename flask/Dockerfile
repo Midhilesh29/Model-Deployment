@@ -1,9 +1,18 @@
-FROM python:3.7-slim
+# This is the base image we are going build our app
+# If this image does'nt exist in the local system, it checks in the trusted docker registry and downloads it
+FROM pytorch/pytorch:latest
 
+# Add a new layer that will create a working directory
 WORKDIR /app
 
-ADD . /app
+# Add a new layer to copy the current directory local files to the working directory
+COPY . /app
 
-RUN pip install -r requirements.txt
+# Add a new layer to set a environment variable stating not to use cuda
+ENV NO_CUDA=1
 
-CMD exec gunicorn --bind 0.0.0.0:8000 run:app
+# Add a new layer to install torchvision, flask, gunicorn
+RUN pip install torchvision flask gunicorn
+
+# Add a new layer to execute this shell script while creating the container
+CMD exec gunicorn --bind 0.0.0.0:5000 deploy:app
