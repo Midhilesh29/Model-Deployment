@@ -33,7 +33,7 @@ def get_prediction(image_bytes):
     return imagenet_class_index[predicted_idx]
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/', methods=['POST'])
 def predict():
     if request.method == 'POST':
         file = request.files['file']

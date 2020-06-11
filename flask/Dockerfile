@@ -15,4 +15,4 @@ ENV NO_CUDA=1
 RUN pip install torchvision flask gunicorn
 
 # Add a new layer to execute this shell script while creating the container
-CMD exec gunicorn --bind 0.0.0.0:5000 deploy:app
+CMD exec gunicorn --bind 0.0.0.0:8000 deploy:app
